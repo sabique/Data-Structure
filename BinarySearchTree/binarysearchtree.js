@@ -129,6 +129,40 @@ class BinarySearchTree {
 
         return false;
     }
+
+    isBalanced(){
+        return (this.findMaxHeight() - this.findMinHeight()) <= 1;
+    }
+
+    findMinHeight(node = this.root) {
+        if(node === null) {
+            return -1;
+        }
+
+        let left = this.findMinHeight(node.left);
+        let right = this.findMinHeight(node.right);
+
+        if(left < right) {
+            return left + 1;
+        } else {
+            return right + 1;
+        }
+    }
+
+    findMaxHeight(node = this.root) {
+        if(node == null) {
+            return -1;
+        }
+
+        let left = this.findMaxHeight(node.left);
+        let right = this.findMaxHeight(node.right);
+
+        if(left > right) {
+            return left + 1;
+        } else {
+            return right + 1;
+        }
+    }
 }
 
 const bst = new BinarySearchTree();
@@ -140,9 +174,14 @@ bst.add(1);
 bst.add(3);
 bst.add(5);
 bst.add(7);
+
 bst.remove(4);
 console.log(bst.findMin());
 console.log(bst.findMax());
 bst.remove(7);
 console.log(bst.findMax());
 console.log(bst.isPresent(4));
+
+console.log(bst.findMinHeight());
+console.log(bst.findMaxHeight());
+console.log(bst.isBalanced());
